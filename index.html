@@ -413,9 +413,8 @@
     const prompt = `${month}월 제철+트렌드 반영, "${ingredient}"로 초간단 레시피 5개. 각각: 요리명, 재료, 3단계 조리법, 꿀팁 1줄, 유튜브 검색어, 인스타 해시태그 3개. 에몽이 말투로 짧게!`;
 
     try {
-      const res = await fetch(
-        \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=\${GEMINI_KEY}\`,
-        {
+      const apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+      const res = await fetch(apiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -500,9 +499,8 @@
     const loading = appendMessage('assistant', '<span style="color:var(--muted);">김비서가 생각 중... 🔔</span>');
 
     try {
-      const res = await fetch(
-        \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=\${GEMINI_KEY}\`,
-        {
+      const chatUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+      const res = await fetch(chatUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
