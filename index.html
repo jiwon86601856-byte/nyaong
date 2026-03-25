@@ -427,6 +427,11 @@
         }
       );
       const data = await res.json();
+      if (data.error) {
+        resultDiv.innerHTML = '<div style="text-align:center;color:var(--red);padding:20px 0;">API 오류: ' + escHtml(data.error.message) + '</div>';
+        badge.textContent = '오류';
+        return;
+      }
       const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '앗 실패했어! 다시 해줘!';
 
       const formatted = reply
@@ -440,7 +445,7 @@
       resultDiv.innerHTML = formatted;
       badge.textContent = '완료!';
     } catch (err) {
-      resultDiv.innerHTML = '<div style="text-align:center;color:var(--red);padding:40px 0;">⚠ 오류가 발생했어요. 네트워크를 확인해주세요.</div>';
+      resultDiv.innerHTML = '<div style="text-align:center;color:var(--red);padding:40px 0;">⚠ 오류: ' + escHtml(err.message) + '</div>';
       badge.textContent = '오류';
     }
   }
