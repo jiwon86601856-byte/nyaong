@@ -410,31 +410,7 @@
     const today = new Date();
     const month = today.getMonth() + 1;
 
-    const prompt = `너는 요리 전문가 도라에몽이야! 사용자가 "${ingredient}" 식재료를 줬어.
-
-지금은 ${month}월이야. 다음을 반드시 반영해서 레시피를 만들어줘:
-- 현재 ${month}월 제철 식재료와 잘 어울리는 조합
-- 최신 음식 트렌드 (예: 저탄고지, 원팬요리, 에어프라이어 활용, SNS 인기 레시피, 먹방 트렌드 등)
-- 건강과 영양 균형
-
-반드시 최소 5개 이상의 레시피를 알려줘. 각 레시피마다 반드시 아래 형식을 지켜줘:
-
-## 🍽️ [번호]. 요리 이름
-⏱️ **조리 시간:** 00분
-📝 **재료:** 재료 목록
-👨‍🍳 **조리 순서:**
-1. 첫번째 단계
-2. 두번째 단계
-3. 세번째 단계
-💡 **꿀팁:** 맛을 올리는 비법
-
-📺 **유튜브 추천 검색어:** "해당 요리 유튜브에서 검색하면 좋은 키워드" (예: "백종원 양배추롤", "자취요리 양배추전")
-📸 **인스타그램 해시태그:** #관련해시태그1 #관련해시태그2 #관련해시태그3
-
----
-
-마지막에 전체 레시피에 대한 간단한 정리와, 이 식재료와 잘 어울리는 ${month}월 제철 식재료 추천도 해줘.
-친근하고 재미있는 도라에몽 말투로 답변해줘! 이모지도 적절히 사용해줘.`;
+    const prompt = `${month}월 제철+트렌드 반영, "${ingredient}"로 초간단 레시피 5개. 각각: 요리명, 재료, 3단계 조리법, 꿀팁 1줄, 유튜브 검색어, 인스타 해시태그 3개. 에몽이 말투로 짧게!`;
 
     try {
       const res = await fetch(
@@ -443,12 +419,16 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contents: [{ role: 'user', parts: [{ text: prompt }] }]
+            system_instruction: {
+              parts: [{ text: '너는 에몽이라는 귀여운 요리 도우미야. 친근한 반말로 짧고 핵심만 답해. 이모지 적절히 써.' }]
+            },
+            contents: [{ role: 'user', parts: [{ text: prompt }] }],
+            generationConfig: { maxOutputTokens: 1500 }
           })
         }
       );
       const data = await res.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '사차원 주머니가 막혔어요! 다시 시도해주세요!';
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '앗 실패했어! 다시 해줘!';
 
       const formatted = reply
         .replace(/\n/g, '<br>')
