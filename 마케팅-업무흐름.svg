@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 520" font-family="'Segoe UI', 'Malgun Gothic', sans-serif">
+  <defs>
+    <!-- Gradient backgrounds for each step -->
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#667eea" />
+      <stop offset="100%" style="stop-color:#f5576c" />
+    </linearGradient>
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#00000022"/>
+    </filter>
+    <filter id="shadowSm" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000018"/>
+    </filter>
+    <!-- Arrow marker -->
+    <marker id="arrowhead" markerWidth="12" markerHeight="8" refX="10" refY="4" orient="auto">
+      <path d="M0,0 L12,4 L0,8 Z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="520" rx="20" fill="#f8fafc"/>
+  <!-- Subtle grid pattern -->
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#e2e8f0" stroke-width="0.5"/>
+  </pattern>
+  <rect width="1100" height="520" rx="20" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- Title -->
+  <text x="550" y="55" text-anchor="middle" font-size="26" font-weight="700" fill="url(#titleGrad)">마케팅 업무 흐름도</text>
+  <text x="550" y="78" text-anchor="middle" font-size="13" fill="#94a3b8" font-weight="400">Marketing Workflow Process</text>
+
+  <!-- ===== Step 1: 기획 ===== -->
+  <g transform="translate(50, 140)" filter="url(#shadow)">
+    <rect width="170" height="200" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    <!-- Icon circle -->
+    <circle cx="85" cy="55" r="32" fill="url(#grad1)" opacity="0.9"/>
+    <!-- Lightbulb icon -->
+    <g transform="translate(85, 55)" fill="white">
+      <path d="M-8,-14 C-14,-14 -16,-8 -16,-4 C-16,2 -12,6 -10,8 L-10,12 L6,12 L6,8 C8,6 12,2 12,-4 C12,-8 10,-14 4,-14 Z" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="-6" y1="16" x2="2" y2="16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-4" y1="20" x2="0" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-2" y1="-6" x2="-2" y2="4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-2" y1="-6" x2="-7" y2="0" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-2" y1="-6" x2="3" y2="0" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <!-- Step number -->
+    <rect x="120" y="12" width="36" height="22" rx="11" fill="url(#grad1)"/>
+    <text x="138" y="27" text-anchor="middle" font-size="12" fill="white" font-weight="700">01</text>
+    <!-- Title -->
+    <text x="85" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">기획</text>
+    <text x="85" y="132" text-anchor="middle" font-size="11" fill="#94a3b8">Planning</text>
+    <!-- Description -->
+    <text x="85" y="158" text-anchor="middle" font-size="11" fill="#64748b">목표 설정 · 전략 수립</text>
+    <text x="85" y="175" text-anchor="middle" font-size="11" fill="#64748b">타겟 분석 · 예산 배분</text>
+  </g>
+
+  <!-- Arrow 1→2 -->
+  <line x1="230" y1="240" x2="258" y2="240" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="6,3"/>
+
+  <!-- ===== Step 2: 콘텐츠 제작 ===== -->
+  <g transform="translate(270, 140)" filter="url(#shadow)">
+    <rect width="170" height="200" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="85" cy="55" r="32" fill="url(#grad2)" opacity="0.9"/>
+    <!-- Pen/Edit icon -->
+    <g transform="translate(85, 55)" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-10,14 L-14,18 L-10,17 Z" fill="white"/>
+      <path d="M6,-14 L10,-10 L-8,8 L-12,12 L-11,8 Z"/>
+      <line x1="3" y1="-11" x2="7" y2="-7"/>
+      <rect x="-6" y="-4" width="18" height="14" rx="2" stroke="white" stroke-width="1.5" fill="none" opacity="0.4"/>
+    </g>
+    <rect x="120" y="12" width="36" height="22" rx="11" fill="url(#grad2)"/>
+    <text x="138" y="27" text-anchor="middle" font-size="12" fill="white" font-weight="700">02</text>
+    <text x="85" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">콘텐츠 제작</text>
+    <text x="85" y="132" text-anchor="middle" font-size="11" fill="#94a3b8">Content Creation</text>
+    <text x="85" y="158" text-anchor="middle" font-size="11" fill="#64748b">카피라이팅 · 디자인</text>
+    <text x="85" y="175" text-anchor="middle" font-size="11" fill="#64748b">영상 제작 · 소재 준비</text>
+  </g>
+
+  <!-- Arrow 2→3 -->
+  <line x1="450" y1="240" x2="478" y2="240" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="6,3"/>
+
+  <!-- ===== Step 3: 검토 ===== -->
+  <g transform="translate(490, 140)" filter="url(#shadow)">
+    <rect width="170" height="200" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="85" cy="55" r="32" fill="url(#grad3)" opacity="0.9"/>
+    <!-- Checkmark/Shield icon -->
+    <g transform="translate(85, 55)" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0,-16 L12,-10 L12,4 C12,12 0,18 0,18 C0,18 -12,12 -12,4 L-12,-10 Z" stroke-width="2"/>
+      <polyline points="-5,1 -1,6 7,-4" stroke-width="2.5"/>
+    </g>
+    <rect x="120" y="12" width="36" height="22" rx="11" fill="url(#grad3)"/>
+    <text x="138" y="27" text-anchor="middle" font-size="12" fill="white" font-weight="700">03</text>
+    <text x="85" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">검토</text>
+    <text x="85" y="132" text-anchor="middle" font-size="11" fill="#94a3b8">Review</text>
+    <text x="85" y="158" text-anchor="middle" font-size="11" fill="#64748b">품질 확인 · 법무 검토</text>
+    <text x="85" y="175" text-anchor="middle" font-size="11" fill="#64748b">피드백 반영 · 승인</text>
+  </g>
+
+  <!-- Arrow 3→4 -->
+  <line x1="670" y1="240" x2="698" y2="240" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="6,3"/>
+
+  <!-- ===== Step 4: 배포 ===== -->
+  <g transform="translate(710, 140)" filter="url(#shadow)">
+    <rect width="170" height="200" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="85" cy="55" r="32" fill="url(#grad4)" opacity="0.9"/>
+    <!-- Rocket icon -->
+    <g transform="translate(85, 55)" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-2,-16 C4,-12 10,-4 10,2 L4,8 C-2,8 -8,4 -12,0 C-12,0 -8,-10 -2,-16Z"/>
+      <circle cx="2" cy="-2" r="3" fill="white" stroke="white" stroke-width="1"/>
+      <path d="M-10,8 L-14,14 L-6,10" stroke-width="1.5"/>
+      <path d="M-8,6 L-12,12 L-4,10" stroke-width="1.5"/>
+    </g>
+    <rect x="120" y="12" width="36" height="22" rx="11" fill="url(#grad4)"/>
+    <text x="138" y="27" text-anchor="middle" font-size="12" fill="white" font-weight="700">04</text>
+    <text x="85" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">배포</text>
+    <text x="85" y="132" text-anchor="middle" font-size="11" fill="#94a3b8">Distribution</text>
+    <text x="85" y="158" text-anchor="middle" font-size="11" fill="#64748b">채널 게시 · 광고 집행</text>
+    <text x="85" y="175" text-anchor="middle" font-size="11" fill="#64748b">SNS · 이메일 · 웹</text>
+  </g>
+
+  <!-- Arrow 4→5 -->
+  <line x1="890" y1="240" x2="918" y2="240" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="6,3"/>
+
+  <!-- ===== Step 5: 성과 분석 ===== -->
+  <g transform="translate(930, 140)" filter="url(#shadow)">
+    <rect width="170" height="200" rx="16" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="85" cy="55" r="32" fill="url(#grad5)" opacity="0.9"/>
+    <!-- Chart icon -->
+    <g transform="translate(85, 55)" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-14" y="-14" width="28" height="28" rx="3" stroke-width="2"/>
+      <polyline points="-8,8 -3,0 3,4 8,-8" stroke-width="2.5"/>
+      <circle cx="8" cy="-8" r="2" fill="white"/>
+    </g>
+    <rect x="120" y="12" width="36" height="22" rx="11" fill="url(#grad5)"/>
+    <text x="138" y="27" text-anchor="middle" font-size="12" fill="white" font-weight="700">05</text>
+    <text x="85" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1e293b">성과 분석</text>
+    <text x="85" y="132" text-anchor="middle" font-size="11" fill="#94a3b8">Analytics</text>
+    <text x="85" y="158" text-anchor="middle" font-size="11" fill="#64748b">KPI 측정 · ROI 분석</text>
+    <text x="85" y="175" text-anchor="middle" font-size="11" fill="#64748b">리포트 작성 · 개선</text>
+  </g>
+
+  <!-- Feedback loop arrow (bottom) -->
+  <path d="M1015,350 L1015,420 C1015,440 1000,450 980,450 L120,450 C100,450 85,440 85,420 L85,350"
+        fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="8,4" marker-end="url(#arrowhead)"/>
+  <rect x="470" y="438" width="160" height="24" rx="12" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="550" y="454" text-anchor="middle" font-size="11" fill="#94a3b8" font-weight="500">피드백 반영 · 반복 개선</text>
+
+  <!-- Bottom bar -->
+  <rect x="30" y="488" width="1040" height="4" rx="2" fill="url(#titleGrad)" opacity="0.3"/>
+</svg>
