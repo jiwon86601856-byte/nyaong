@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔔 도라에몽 업무 대시보드</title>
+<title>🍳 도라에몽의 사차원 레시피</title>
 <style>
   :root {
     --bg:        #04101E;
@@ -13,11 +13,10 @@
     --border2:   rgba(30, 171, 238, 0.08);
     --text:      #E8F4FF;
     --muted:     #6FA8C5;
-    --blue:      #1EABEE;   /* 도라에몽 블루 */
-    --blue-dim:  #1278AC;
+    --blue:      #1EABEE;
     --green:     #4EDE74;
-    --yellow:    #FFD700;   /* 방울 골드 */
-    --red:       #FF4455;   /* 목걸이 빨강 */
+    --yellow:    #FFD700;
+    --red:       #FF4455;
     --purple:    #BE88FF;
     --orange:    #FFB347;
     --glow:      rgba(30, 171, 238, 0.25);
@@ -32,7 +31,6 @@
     font-size: 14px;
     min-height: 100vh;
     padding: 20px;
-    /* 배경 별 패턴 */
     background-image:
       radial-gradient(circle, rgba(30,171,238,0.06) 1px, transparent 1px),
       radial-gradient(circle, rgba(255,215,0,0.04) 1px, transparent 1px);
@@ -44,7 +42,6 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: rgba(30,171,238,0.3); border-radius: 3px; }
 
-  /* ━━ 애니메이션 ━━ */
   @keyframes float {
     0%,100% { transform: translateY(0px); }
     50%      { transform: translateY(-10px); }
@@ -68,11 +65,7 @@
     from { opacity:0; transform: translateY(12px); }
     to   { opacity:1; transform: translateY(0); }
   }
-  @keyframes progressIn {
-    from { width: 0 !important; }
-  }
 
-  /* ━━ HEADER ━━ */
   .header {
     display: flex;
     align-items: center;
@@ -86,7 +79,6 @@
     position: relative;
     overflow: hidden;
   }
-  /* 헤더 배경 동그라미 장식 */
   .header::before {
     content: '';
     position: absolute;
@@ -94,15 +86,6 @@
     width: 200px; height: 200px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(30,171,238,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: -40px; left: 60px;
-    width: 150px; height: 150px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -122,29 +105,21 @@
     margin-top: 5px;
     line-height: 1.6;
   }
-  .header-center { z-index: 1; text-align: center; }
-  .clock {
-    font-size: 30px;
-    font-weight: 800;
-    font-variant-numeric: tabular-nums;
-    color: #7DD8FF;
-    letter-spacing: 2px;
-    text-shadow: 0 0 20px rgba(30,171,238,0.5);
-  }
-  .date-str { color: var(--muted); font-size: 12px; margin-top: 4px; }
-  .today-badge {
-    display: inline-block;
-    background: rgba(30,171,238,0.15);
-    color: var(--blue);
-    border: 1px solid rgba(30,171,238,0.35);
-    border-radius: 20px;
-    font-size: 11px;
-    padding: 3px 12px;
-    margin-top: 6px;
-    animation: glow-pulse 2.5s ease-in-out infinite;
-  }
 
-  /* ━━ DORAEMON SVG 컨테이너 ━━ */
+  .star {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+    animation: sparkle 2s ease-in-out infinite;
+    z-index: 0;
+  }
+  .star:nth-child(1) { top:12px; left:40px; animation-delay:0s; width:8px;height:8px; }
+  .star:nth-child(2) { top:30px; left:200px; animation-delay:0.5s; width:5px;height:5px; }
+  .star:nth-child(3) { bottom:18px; left:120px; animation-delay:1s; }
+  .star:nth-child(4) { top:18px; right:220px; animation-delay:0.3s; width:7px;height:7px; }
+  .star:nth-child(5) { bottom:12px; right:230px; animation-delay:0.8s; }
+
   .doraemon-wrap {
     z-index: 1;
     animation: float 3.5s ease-in-out infinite;
@@ -154,84 +129,6 @@
   .doraemon-wrap:hover { animation-play-state: paused; }
   .doraemon-wrap:hover .bell-svg { animation: bellSwing 0.8s ease-in-out; }
 
-  /* ━━ 별 반짝 장식 ━━ */
-  .star {
-    position: absolute;
-    width: 6px; height: 6px;
-    background: var(--yellow);
-    clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
-    animation: sparkle 2s ease-in-out infinite;
-    z-index: 0;
-  }
-  .star:nth-child(1) { top:12px; left:40px;  animation-delay:0s;    width:8px;height:8px; }
-  .star:nth-child(2) { top:30px; left:200px; animation-delay:0.5s;  width:5px;height:5px; }
-  .star:nth-child(3) { bottom:18px; left:120px; animation-delay:1s; }
-  .star:nth-child(4) { top:18px; right:220px; animation-delay:0.3s; width:7px;height:7px; }
-  .star:nth-child(5) { bottom:12px; right:230px; animation-delay:0.8s; }
-
-  /* ━━ KPI 카드 ━━ */
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .kpi-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 20px 22px;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.25s, box-shadow 0.25s;
-    animation: slideUp 0.5s ease both;
-  }
-  .kpi-card:nth-child(1) { animation-delay: 0.05s; }
-  .kpi-card:nth-child(2) { animation-delay: 0.10s; }
-  .kpi-card:nth-child(3) { animation-delay: 0.15s; }
-  .kpi-card:nth-child(4) { animation-delay: 0.20s; }
-  .kpi-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(30,171,238,0.15);
-  }
-  .kpi-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    border-radius: 20px 20px 0 0;
-  }
-  .kpi-card.kblue::before   { background: linear-gradient(90deg, #1EABEE, #7DD8FF); }
-  .kpi-card.kgreen::before  { background: linear-gradient(90deg, #4EDE74, #00C080); }
-  .kpi-card.kyellow::before { background: linear-gradient(90deg, #FFD700, #FFA500); }
-  .kpi-card.kpurple::before { background: linear-gradient(90deg, #BE88FF, #8844DD); }
-  .kpi-label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-  }
-  .kpi-value {
-    font-size: 26px;
-    font-weight: 800;
-    line-height: 1;
-    margin-bottom: 7px;
-  }
-  .kpi-card.kblue   .kpi-value { color: #7DD8FF; }
-  .kpi-card.kgreen  .kpi-value { color: var(--green); }
-  .kpi-card.kyellow .kpi-value { color: var(--yellow); }
-  .kpi-card.kpurple .kpi-value { color: var(--purple); }
-  .kpi-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
-  .kpi-icon {
-    position: absolute;
-    right: 18px; top: 50%;
-    transform: translateY(-50%);
-    font-size: 34px;
-    opacity: 0.13;
-  }
-
-  /* ━━ 공통 카드 ━━ */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -261,177 +158,21 @@
     font-weight: 700;
   }
   .badge-blue   { background:rgba(30,171,238,0.15); color:var(--blue);   border:1px solid rgba(30,171,238,0.3); }
-  .badge-green  { background:rgba(78,222,116,0.12); color:var(--green);  border:1px solid rgba(78,222,116,0.25); }
   .badge-yellow { background:rgba(255,215,0,0.12);  color:var(--yellow); border:1px solid rgba(255,215,0,0.25); }
-  .badge-red    { background:rgba(255,68,85,0.12);  color:var(--red);    border:1px solid rgba(255,68,85,0.25); }
 
-  /* ━━ 할 일 ━━ */
-  .todo-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 11px 14px;
-    border-radius: 14px;
-    border: 1px solid var(--border2);
-    margin-bottom: 8px;
-    background: var(--surface2);
-    transition: all 0.2s;
-    cursor: pointer;
-    animation: slideUp 0.4s ease both;
-  }
-  .todo-item:hover { border-color: rgba(30,171,238,0.35); background: rgba(30,171,238,0.05); }
-  .todo-item.done  { opacity: 0.42; }
-  .todo-checkbox {
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    border: 2px solid var(--muted);
-    flex-shrink: 0;
-    margin-top: 1px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s;
-  }
-  .todo-checkbox.checked {
-    background: linear-gradient(135deg, #1EABEE, #0088CC);
-    border-color: var(--blue);
-    box-shadow: 0 0 10px rgba(30,171,238,0.4);
-  }
-  .todo-checkbox.checked::after { content: '✓'; font-size: 11px; color: white; font-weight: 800; }
-  .todo-content { flex: 1; min-width: 0; }
-  .todo-text { font-size: 13px; line-height: 1.4; transition: all 0.2s; word-break: keep-all; }
-  .todo-item.done .todo-text { text-decoration: line-through; color: var(--muted); }
-  .todo-meta { display: flex; align-items: center; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
-  .priority-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .p-high   { background: var(--red); }
-  .p-medium { background: var(--yellow); }
-  .p-low    { background: var(--green); }
-  .todo-tag { font-size: 10px; color: var(--muted); }
-  .deadline-tag {
-    font-size: 10px; padding: 2px 7px; border-radius: 6px;
-    background: rgba(255,68,85,0.15); color: var(--red); font-weight: 700;
-  }
-  .deadline-tag.warn { background: rgba(255,215,0,0.12); color: var(--yellow); }
-
-  /* ━━ 할 일 추가 폼 ━━ */
-  .add-task-form {
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border2);
-  }
-  .add-task-inputs { display: flex; gap: 8px; margin-bottom: 8px; }
-  .task-input, .priority-select, .task-deadline-input, .assignee-input {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
-    font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .task-input:focus, .task-deadline-input:focus, .assignee-input:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(30,171,238,0.15);
-  }
-  .task-input { flex:1; padding:9px 13px; font-size:13px; }
-  .priority-select { padding:9px 10px; font-size:12px; cursor:pointer; min-width:82px; }
-  .task-deadline-row { display: flex; gap: 8px; align-items: center; }
-  .task-deadline-input { padding:7px 11px; font-size:12px; flex:1; }
-  .assignee-input { padding:7px 11px; font-size:12px; width:88px; }
-  .add-btn {
-    background: linear-gradient(135deg, #1EABEE, #0088CC);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 9px 18px;
-    font-size: 13px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s;
-    white-space: nowrap;
-    box-shadow: 0 4px 14px rgba(30,171,238,0.3);
-  }
-  .add-btn:hover { opacity: 0.88; transform: translateY(-1px); }
-
-  /* ━━ 프로젝트 진행률 ━━ */
-  .project-item { margin-bottom: 15px; }
-  .project-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4px; }
-  .project-name { font-size: 12px; font-weight: 700; word-break: keep-all; }
-  .project-pct { font-size: 12px; font-weight: 800; color: var(--blue); }
-  .project-sub { font-size: 10px; color: var(--muted); margin-bottom: 5px; }
-  .progress-track { background: rgba(30,171,238,0.08); border-radius: 8px; height: 7px; overflow: hidden; }
-  .progress-bar {
-    height: 100%;
-    border-radius: 8px;
-    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
-    animation: progressIn 1.4s cubic-bezier(0.4,0,0.2,1) both;
-  }
-
-  /* ━━ 일정 ━━ */
-  .main-grid { display: grid; grid-template-columns: 1.1fr 0.9fr 0.9fr; gap: 16px; margin-bottom: 16px; }
-  .schedule-day { display: flex; gap: 10px; margin-bottom: 9px; }
-  .day-label {
-    min-width: 54px;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 7px 4px;
-    border-radius: 12px;
+  .recipe-card {
     background: var(--surface2);
     border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
     transition: all 0.2s;
   }
-  .day-label.today {
-    background: rgba(30,171,238,0.12);
-    border-color: rgba(30,171,238,0.45);
-    box-shadow: 0 0 12px rgba(30,171,238,0.2);
-  }
-  .day-name { font-size: 9px; color: var(--muted); font-weight: 700; letter-spacing: 0.5px; }
-  .day-label.today .day-name { color: var(--blue); }
-  .day-num { font-size: 20px; font-weight: 800; line-height: 1.2; }
-  .day-label.today .day-num { color: var(--blue); }
-  .day-events { flex: 1; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
-  .event-item {
-    padding: 5px 10px;
-    border-radius: 8px;
-    font-size: 11px;
-    border-left: 3px solid;
-    line-height: 1.4;
-    word-break: keep-all;
-  }
-  .event-item.type-meet { background:rgba(30,171,238,0.08);  border-color:var(--blue);   }
-  .event-item.type-task { background:rgba(255,68,85,0.07);   border-color:var(--red);    }
-  .event-item.type-done { background:rgba(78,222,116,0.06);  border-color:var(--green);  color:var(--muted); }
-  .event-item.type-work { background:rgba(190,136,255,0.08); border-color:var(--purple); }
-  .event-item.type-warn { background:rgba(255,215,0,0.07);   border-color:var(--yellow); }
-  .event-time { font-size: 10px; color: var(--muted); }
-
-  /* ━━ 하단 차트 영역 ━━ */
-  .bottom-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
-  .section-divider { height: 1px; background: var(--border2); margin: 10px 0 14px; }
-  .progress-track-lg { background: rgba(30,171,238,0.06); border-radius: 8px; height: 7px; overflow: hidden; }
-
-  /* ━━ 도넛 차트 ━━ */
-  .region-item { margin-bottom: 14px; }
-  .region-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
-  .region-name { font-size: 12px; font-weight: 700; }
-  .region-amount { font-size: 11px; color: var(--muted); }
-  .region-pct { font-size: 11px; color: var(--blue); font-weight: 800; }
-
-  /* ━━ 주머니 툴팁 장식 ━━ */
-  .pocket-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: var(--muted);
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 10px;
-    padding: 4px 10px;
+  .recipe-card:hover {
+    border-color: rgba(30,171,238,0.35);
+    box-shadow: 0 4px 20px rgba(30,171,238,0.1);
   }
 
-  /* ━━ 하단 ━━ */
   .footer {
     text-align: center;
     color: var(--muted);
@@ -442,16 +183,18 @@
   }
   .footer span { color: var(--blue); }
 
-  /* ━━ 반응형 ━━ */
-  @media (max-width:1100px) { .main-grid{grid-template-columns:1fr 1fr;} .bottom-grid{grid-template-columns:1fr;} }
-  @media (max-width:700px)  { .kpi-grid{grid-template-columns:1fr 1fr;} .main-grid{grid-template-columns:1fr;} }
+  @media (max-width:700px) {
+    .header { flex-direction: column; gap: 16px; text-align: center; }
+    .characters { justify-content: center; }
+  }
+
+  .characters { display: flex; gap: 8px; align-items: flex-end; z-index: 1; }
 </style>
 </head>
 <body>
 
 <!-- ══════════ HEADER ══════════ -->
 <div class="header">
-  <!-- 별 장식 -->
   <div class="star"></div>
   <div class="star"></div>
   <div class="star"></div>
@@ -459,623 +202,157 @@
   <div class="star"></div>
 
   <div class="header-left">
-    <h1>🔔 도라에몽의 업무 대시보드</h1>
+    <h1>🍳 도라에몽의 사차원 레시피</h1>
     <p>
-      어떤 도구가 필요하세요? 사차원 주머니에서 꺼내 드릴게요! 🎒<br>
-      마케팅팀 회의록(2026-03-09) · 매출데이터(2026.01~02) 기반
+      식재료를 알려주면 사차원 주머니에서 맛있는 레시피를 꺼내드려요! 🎒<br>
+      제철 식재료 · 유행 트렌드 · 유튜브/인스타 레퍼런스 포함
     </p>
   </div>
 
-  <div class="header-center">
-    <div class="clock" id="clock">--:--:--</div>
-    <div class="date-str" id="dateStr">로딩 중...</div>
-    <div class="today-badge">📅 2026년 3월 11일 수요일</div>
-  </div>
-
-  <!-- ★ 도라에몽 SVG 일러스트 ★ -->
-  <div class="doraemon-wrap">
-    <svg viewBox="0 0 152 178" width="132" height="154" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="headGrad" cx="42%" cy="35%">
-          <stop offset="0%"   stop-color="#4DC8F5"/>
-          <stop offset="100%" stop-color="#0A8FCC"/>
-        </radialGradient>
-        <radialGradient id="faceGrad" cx="50%" cy="40%">
-          <stop offset="0%"   stop-color="#FFFFFF"/>
-          <stop offset="100%" stop-color="#F0F8FF"/>
-        </radialGradient>
-        <radialGradient id="bellGrad" cx="35%" cy="30%">
-          <stop offset="0%"   stop-color="#FFE44D"/>
-          <stop offset="100%" stop-color="#CC9900"/>
-        </radialGradient>
-        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0088CC" flood-opacity="0.3"/>
-        </filter>
-      </defs>
-
-      <!-- 머리 (파란 원) -->
-      <circle cx="76" cy="70" r="64" fill="url(#headGrad)" filter="url(#softShadow)"/>
-
-      <!-- 얼굴 (흰 원) -->
-      <circle cx="76" cy="87" r="52" fill="url(#faceGrad)"/>
-
-      <!-- 왼쪽 눈 흰자 -->
-      <circle cx="54" cy="61" r="15" fill="white"/>
-      <!-- 왼쪽 눈동자 -->
-      <circle cx="57" cy="65" r="9" fill="#111"/>
-      <!-- 왼쪽 눈 반짝이 -->
-      <circle cx="61" cy="60" r="4" fill="white"/>
-      <circle cx="58" cy="68" r="1.8" fill="white"/>
-
-      <!-- 오른쪽 눈 흰자 -->
-      <circle cx="98" cy="61" r="15" fill="white"/>
-      <!-- 오른쪽 눈동자 -->
-      <circle cx="101" cy="65" r="9" fill="#111"/>
-      <!-- 오른쪽 눈 반짝이 -->
-      <circle cx="105" cy="60" r="4" fill="white"/>
-      <circle cx="102" cy="68" r="1.8" fill="white"/>
-
-      <!-- 코 (빨간 원) -->
-      <circle cx="76" cy="82" r="9" fill="#FF3333"/>
-      <!-- 코 하이라이트 -->
-      <circle cx="73" cy="79" r="3" fill="rgba(255,255,255,0.5)"/>
-
-      <!-- 코-입 세로선 -->
-      <line x1="76" y1="91" x2="76" y2="101" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
-
-      <!-- 웃는 입 -->
-      <path d="M 47,101 Q 76,128 105,101" fill="none" stroke="#333" stroke-width="2.8" stroke-linecap="round"/>
-
-      <!-- 왼쪽 수염 (3개) -->
-      <line x1="10" y1="83" x2="62" y2="80" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="10" y1="93" x2="62" y2="93" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="10" y1="103" x2="62" y2="106" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
-
-      <!-- 오른쪽 수염 (3개) -->
-      <line x1="90" y1="80" x2="142" y2="83" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="90" y1="93" x2="142" y2="93" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="90" y1="106" x2="142" y2="103" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
-
-      <!-- 목걸이 (빨간 띠) -->
-      <rect x="11" y="131" width="130" height="13" rx="6.5" fill="#EE1111"/>
-      <!-- 목걸이 하이라이트 -->
-      <rect x="11" y="131" width="130" height="5" rx="6.5" fill="rgba(255,255,255,0.22)"/>
-
-      <!-- 방울 연결 고리 -->
-      <rect x="71" y="144" width="10" height="9" rx="3" fill="#CC9900"/>
-
-      <!-- 방울 (금색 원) -->
-      <circle cx="76" cy="163" r="14" fill="url(#bellGrad)" class="bell-svg"/>
-      <!-- 방울 세로선 -->
-      <line x1="76" y1="149" x2="76" y2="170" stroke="#AA7700" stroke-width="1.8"/>
-      <!-- 방울 가로선 -->
-      <line x1="64" y1="160" x2="88" y2="160" stroke="#AA7700" stroke-width="1.8"/>
-      <!-- 방울 작은 구멍 -->
-      <circle cx="76" cy="163" r="2.5" fill="#AA7700"/>
-      <!-- 방울 하이라이트 -->
-      <circle cx="70" cy="156" r="3.5" fill="rgba(255,255,255,0.55)"/>
-    </svg>
-  </div>
-
-  <!-- ★ 도라미 SVG 일러스트 ★ -->
-  <div class="doraemon-wrap" style="animation-delay:0.5s;">
-    <svg viewBox="0 0 152 178" width="110" height="128" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="doramiHeadGrad" cx="42%" cy="35%">
-          <stop offset="0%"   stop-color="#FFE866"/>
-          <stop offset="100%" stop-color="#F5C800"/>
-        </radialGradient>
-        <radialGradient id="doramiFaceGrad" cx="50%" cy="40%">
-          <stop offset="0%"   stop-color="#FFFFFF"/>
-          <stop offset="100%" stop-color="#FFFBE6"/>
-        </radialGradient>
-        <radialGradient id="doramiBellGrad" cx="35%" cy="30%">
-          <stop offset="0%"   stop-color="#FFE44D"/>
-          <stop offset="100%" stop-color="#CC9900"/>
-        </radialGradient>
-        <filter id="doramiShadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#F5C800" flood-opacity="0.3"/>
-        </filter>
-      </defs>
-
-      <!-- 리본 (빨간 리본) -->
-      <ellipse cx="50" cy="18" rx="22" ry="14" fill="#EE2233" transform="rotate(-20 50 18)"/>
-      <ellipse cx="102" cy="18" rx="22" ry="14" fill="#EE2233" transform="rotate(20 102 18)"/>
-      <circle cx="76" cy="22" r="8" fill="#DD1122"/>
-      <circle cx="76" cy="22" r="4" fill="#FF6677"/>
-
-      <!-- 머리 (노란 원) -->
-      <circle cx="76" cy="70" r="60" fill="url(#doramiHeadGrad)" filter="url(#doramiShadow)"/>
-
-      <!-- 얼굴 (흰 원) -->
-      <circle cx="76" cy="85" r="48" fill="url(#doramiFaceGrad)"/>
-
-      <!-- 왼쪽 눈 흰자 -->
-      <ellipse cx="58" cy="62" rx="13" ry="14" fill="white"/>
-      <!-- 왼쪽 눈동자 -->
-      <circle cx="61" cy="65" r="8" fill="#111"/>
-      <!-- 왼쪽 눈 반짝이 -->
-      <circle cx="64" cy="61" r="3.5" fill="white"/>
-      <circle cx="62" cy="68" r="1.5" fill="white"/>
-      <!-- 왼쪽 속눈썹 -->
-      <line x1="48" y1="49" x2="55" y2="53" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="44" y1="54" x2="52" y2="55" stroke="#333" stroke-width="2" stroke-linecap="round"/>
-
-      <!-- 오른쪽 눈 흰자 -->
-      <ellipse cx="94" cy="62" rx="13" ry="14" fill="white"/>
-      <!-- 오른쪽 눈동자 -->
-      <circle cx="97" cy="65" r="8" fill="#111"/>
-      <!-- 오른쪽 눈 반짝이 -->
-      <circle cx="100" cy="61" r="3.5" fill="white"/>
-      <circle cx="98" cy="68" r="1.5" fill="white"/>
-      <!-- 오른쪽 속눈썹 -->
-      <line x1="104" y1="49" x2="97" y2="53" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
-      <line x1="108" y1="54" x2="100" y2="55" stroke="#333" stroke-width="2" stroke-linecap="round"/>
-
-      <!-- 코 (빨간 원) -->
-      <circle cx="76" cy="80" r="7" fill="#FF3333"/>
-      <!-- 코 하이라이트 -->
-      <circle cx="74" cy="78" r="2.5" fill="rgba(255,255,255,0.5)"/>
-
-      <!-- 코-입 세로선 -->
-      <line x1="76" y1="87" x2="76" y2="96" stroke="#333" stroke-width="2" stroke-linecap="round"/>
-
-      <!-- 웃는 입 -->
-      <path d="M 52,96 Q 76,118 100,96" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
-
-      <!-- 왼쪽 수염 (3개) -->
-      <line x1="16" y1="78" x2="56" y2="76" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="16" y1="87" x2="56" y2="87" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="16" y1="96" x2="56" y2="98" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
-
-      <!-- 오른쪽 수염 (3개) -->
-      <line x1="96" y1="76" x2="136" y2="78" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="96" y1="87" x2="136" y2="87" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
-      <line x1="96" y1="98" x2="136" y2="96" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
-
-      <!-- 목걸이 (빨간 띠) -->
-      <rect x="15" y="127" width="122" height="12" rx="6" fill="#EE2233"/>
-      <rect x="15" y="127" width="122" height="5" rx="6" fill="rgba(255,255,255,0.22)"/>
-
-      <!-- 방울 연결 고리 -->
-      <rect x="71" y="139" width="10" height="8" rx="3" fill="#CC9900"/>
-
-      <!-- 방울 -->
-      <circle cx="76" cy="157" r="12" fill="url(#doramiBellGrad)"/>
-      <line x1="76" y1="145" x2="76" y2="164" stroke="#AA7700" stroke-width="1.6"/>
-      <line x1="66" y1="155" x2="86" y2="155" stroke="#AA7700" stroke-width="1.6"/>
-      <circle cx="76" cy="157" r="2" fill="#AA7700"/>
-      <circle cx="71" cy="151" r="3" fill="rgba(255,255,255,0.55)"/>
-    </svg>
-  </div>
-</div>
-
-<!-- ══════════ KPI 카드 ══════════ -->
-<div class="kpi-grid">
-  <div class="kpi-card kblue">
-    <div class="kpi-label">누적 총 매출</div>
-    <div class="kpi-value">7,300<span style="font-size:15px;">만</span></div>
-    <div class="kpi-sub">Jan~Feb 10일 합산<br>73,006,000원</div>
-    <div class="kpi-icon">🔔</div>
-  </div>
-  <div class="kpi-card kgreen">
-    <div class="kpi-label">1월 매출</div>
-    <div class="kpi-value">4,650<span style="font-size:15px;">만</span></div>
-    <div class="kpi-sub">46,499,000원 · 21건 거래</div>
-    <div class="kpi-icon">📈</div>
-  </div>
-  <div class="kpi-card kyellow">
-    <div class="kpi-label">최고 판매 제품</div>
-    <div class="kpi-value" style="font-size:18px;">무선 이어폰</div>
-    <div class="kpi-sub">28,836,000원 · 전체의 39.5%</div>
-    <div class="kpi-icon">🏅</div>
-  </div>
-  <div class="kpi-card kpurple">
-    <div class="kpi-label">이번 주 할 일</div>
-    <div class="kpi-value" id="taskCountKpi">4<span style="font-size:15px;">건</span></div>
-    <div class="kpi-sub">완료 <span id="doneCount">0</span>건 · 남은 <span id="leftCount">4</span>건</div>
-    <div class="kpi-icon">✨</div>
-  </div>
-</div>
-
-<!-- ══════════ 메인 3컬럼 ══════════ -->
-<div class="main-grid">
-
-  <!-- ── 오늘 할 일 ── -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title">
-        <span class="icon">📋</span> 오늘 할 일
-      </div>
-      <span class="badge badge-red" id="pendingBadge">4건 남음</span>
-    </div>
-
-    <div id="todo-list">
-      <div class="todo-item" onclick="toggleTodo(this)" style="animation-delay:0.05s">
-        <div class="todo-checkbox"></div>
-        <div class="todo-content">
-          <div class="todo-text">3월 프로모션 기획안 초안 작성</div>
-          <div class="todo-meta">
-            <div class="priority-dot p-high"></div>
-            <span class="todo-tag">높음 · 김대리</span>
-            <span class="deadline-tag">🔴 오늘 마감</span>
-          </div>
-        </div>
-      </div>
-      <div class="todo-item" onclick="toggleTodo(this)" style="animation-delay:0.10s">
-        <div class="todo-checkbox"></div>
-        <div class="todo-content">
-          <div class="todo-text">영상 광고 3개 추가 제작 착수</div>
-          <div class="todo-meta">
-            <div class="priority-dot p-high"></div>
-            <span class="todo-tag">높음 · 박사원</span>
-            <span class="deadline-tag warn">⚠ 이번 주</span>
-          </div>
-        </div>
-      </div>
-      <div class="todo-item" onclick="toggleTodo(this)" style="animation-delay:0.15s">
-        <div class="todo-checkbox"></div>
-        <div class="todo-content">
-          <div class="todo-text">경쟁사 C사 신규 캠페인 분석 보고서</div>
-          <div class="todo-meta">
-            <div class="priority-dot p-medium"></div>
-            <span class="todo-tag">중간 · 박사원</span>
-          </div>
-        </div>
-      </div>
-      <div class="todo-item" onclick="toggleTodo(this)" style="animation-delay:0.20s">
-        <div class="todo-checkbox"></div>
-        <div class="todo-content">
-          <div class="todo-text">인플루언서 미팅 일정 조율 (금요일까지)</div>
-          <div class="todo-meta">
-            <div class="priority-dot p-medium"></div>
-            <span class="todo-tag">중간 · 이과장</span>
-            <span class="deadline-tag warn">⚠ 금요일 마감</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 추가 폼 -->
-    <div class="add-task-form">
-      <div class="add-task-inputs">
-        <input class="task-input" id="newTaskText" type="text" placeholder="✏️ 새 할 일을 입력하세요..."/>
-        <select class="priority-select" id="newTaskPriority">
-          <option value="high">🔴 높음</option>
-          <option value="medium" selected>🟡 중간</option>
-          <option value="low">🟢 낮음</option>
-        </select>
-      </div>
-      <div class="task-deadline-row">
-        <input class="task-deadline-input" id="newTaskDeadline" type="text" placeholder="📅 마감일"/>
-        <input class="assignee-input" id="newTaskAssignee" type="text" placeholder="👤 담당자"/>
-        <button class="add-btn" onclick="addTask()">🎒 추가</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 프로젝트 진행률 ── -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">🚀</span> 프로젝트 진행률</div>
-      <span class="badge badge-blue">5개 진행 중</span>
-    </div>
-
-    <div class="project-item">
-      <div class="project-header">
-        <div class="project-name">SNS 캠페인 — 영상 광고 제작</div>
-        <div class="project-pct">60%</div>
-      </div>
-      <div class="project-sub">B안(영상형) 선정 완료 · 추가 제작 진행 중</div>
-      <div class="progress-track">
-        <div class="progress-bar" style="width:60%;background:linear-gradient(90deg,#1EABEE,#4DC8F5);"></div>
-      </div>
-    </div>
-    <div class="project-item">
-      <div class="project-header">
-        <div class="project-name">블로그 콘텐츠 발행</div>
-        <div class="project-pct">75%</div>
-      </div>
-      <div class="project-sub">3건 발행 완료 · 이번 주 목표 4건</div>
-      <div class="progress-track">
-        <div class="progress-bar" style="width:75%;background:linear-gradient(90deg,#4EDE74,#00CC80);"></div>
-      </div>
-    </div>
-    <div class="project-item">
-      <div class="project-header">
-        <div class="project-name">인플루언서 협업 프로그램</div>
-        <div class="project-pct">40%</div>
-      </div>
-      <div class="project-sub">제안서 3곳 발송 · 1곳 회신 (푸드스타일리 김OO)</div>
-      <div class="progress-track">
-        <div class="progress-bar" style="width:40%;background:linear-gradient(90deg,#BE88FF,#8844DD);"></div>
-      </div>
-    </div>
-    <div class="project-item">
-      <div class="project-header">
-        <div class="project-name">3월 프로모션 기획</div>
-        <div class="project-pct">20%</div>
-      </div>
-      <div class="project-sub">초안 작성 중 · 오늘 마감 🔴</div>
-      <div class="progress-track">
-        <div class="progress-bar" style="width:20%;background:linear-gradient(90deg,#FF4455,#DD2233);"></div>
-      </div>
-    </div>
-    <div class="project-item">
-      <div class="project-header">
-        <div class="project-name">4월 신제품 런칭 티저</div>
-        <div class="project-pct">10%</div>
-      </div>
-      <div class="project-sub">3월 넷째 주 티저 시작 예정</div>
-      <div class="progress-track">
-        <div class="progress-bar" style="width:10%;background:linear-gradient(90deg,#FFD700,#FFA500);"></div>
-      </div>
-    </div>
-
-    <div class="section-divider"></div>
-    <div class="pocket-tag">
-      🎒 <strong style="color:var(--yellow)">예산 조정:</strong>&nbsp;영상 제작비 +200만원 요청 예정
-    </div>
-  </div>
-
-  <!-- ── 이번 주 일정 ── -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">📅</span> 이번 주 일정</div>
-      <span class="badge badge-green">3.09 ~ 3.15</span>
-    </div>
-
-    <div class="schedule-day">
-      <div class="day-label">
-        <div class="day-name">MON</div>
-        <div class="day-num">9</div>
-      </div>
-      <div class="day-events">
-        <div class="event-item type-done">
-          <div class="event-time">오전 10시 · 완료 ✓</div>마케팅팀 주간회의
-        </div>
-      </div>
-    </div>
-    <div class="schedule-day">
-      <div class="day-label">
-        <div class="day-name">TUE</div>
-        <div class="day-num">10</div>
-      </div>
-      <div class="day-events">
-        <div class="event-item type-work">영상 광고 제작 (박사원)</div>
-        <div class="event-item type-work">경쟁사 캠페인 분석 (박사원)</div>
-      </div>
-    </div>
-    <div class="schedule-day">
-      <div class="day-label today">
-        <div class="day-name">WED</div>
-        <div class="day-num">11</div>
-      </div>
-      <div class="day-events">
-        <div class="event-item type-task">
-          <div class="event-time">🔴 오늘 마감</div>
-          3월 프로모션 기획안 제출 (김대리)
-        </div>
-        <div class="event-item type-work">인플루언서 협업 준비</div>
-      </div>
-    </div>
-    <div class="schedule-day">
-      <div class="day-label">
-        <div class="day-name">THU</div>
-        <div class="day-num">12</div>
-      </div>
-      <div class="day-events">
-        <div class="event-item type-work">영상 광고 초안 검토</div>
-      </div>
-    </div>
-    <div class="schedule-day">
-      <div class="day-label">
-        <div class="day-name">FRI</div>
-        <div class="day-num">13</div>
-      </div>
-      <div class="day-events">
-        <div class="event-item type-warn">
-          <div class="event-time">⚠ 마감</div>
-          인플루언서 미팅 일정 확정 (이과장)
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:10px;padding:10px;border-radius:12px;background:rgba(30,171,238,0.07);border:1px solid rgba(30,171,238,0.22);font-size:11px;line-height:1.6;">
-      🔔 <strong style="color:var(--blue)">다음 회의</strong> · 3월 16일(월) 오전 10시<br>
-      <span style="color:var(--muted);">안건: 3월 프로모션 기획안 검토</span>
-    </div>
-  </div>
-
-</div><!-- /main-grid -->
-
-<!-- ══════════ 하단 매출 ══════════ -->
-<div class="bottom-grid">
-
-  <!-- 제품별 매출 바 차트 -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">📊</span> 제품별 매출 현황</div>
-      <span class="badge badge-blue">총 73,006,000원</span>
-    </div>
-
-    <svg viewBox="0 0 560 215" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
-      <defs>
-        <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4DC8F5"/><stop offset="100%" stop-color="#0A8FCC"/></linearGradient>
-        <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4EDE74"/><stop offset="100%" stop-color="#00AA60"/></linearGradient>
-        <linearGradient id="bg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#CE9AFF"/><stop offset="100%" stop-color="#8844CC"/></linearGradient>
-        <linearGradient id="bg4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFB347"/><stop offset="100%" stop-color="#CC7700"/></linearGradient>
-        <linearGradient id="bg5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE44D"/><stop offset="100%" stop-color="#CC9900"/></linearGradient>
-        <linearGradient id="bg6" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF8899"/><stop offset="100%" stop-color="#CC2233"/></linearGradient>
-      </defs>
-
-      <!-- 그리드 -->
-      <line x1="80" y1="10"  x2="540" y2="10"  stroke="rgba(30,171,238,0.08)" stroke-width="1"/>
-      <line x1="80" y1="47"  x2="540" y2="47"  stroke="rgba(30,171,238,0.08)" stroke-width="1"/>
-      <line x1="80" y1="84"  x2="540" y2="84"  stroke="rgba(30,171,238,0.08)" stroke-width="1"/>
-      <line x1="80" y1="121" x2="540" y2="121" stroke="rgba(30,171,238,0.08)" stroke-width="1"/>
-      <line x1="80" y1="158" x2="540" y2="158" stroke="rgba(30,171,238,0.12)" stroke-width="1"/>
-
-      <text x="74" y="14"  text-anchor="end" font-size="9" fill="rgba(30,171,238,0.5)">3,000만</text>
-      <text x="74" y="51"  text-anchor="end" font-size="9" fill="rgba(30,171,238,0.5)">2,250만</text>
-      <text x="74" y="88"  text-anchor="end" font-size="9" fill="rgba(30,171,238,0.5)">1,500만</text>
-      <text x="74" y="125" text-anchor="end" font-size="9" fill="rgba(30,171,238,0.5)">750만</text>
-      <text x="74" y="162" text-anchor="end" font-size="9" fill="rgba(30,171,238,0.5)">0</text>
-
-      <!-- 무선 이어폰 h=142 -->
-      <rect x="84"  y="16"  width="52" height="142" rx="8" fill="url(#bg1)" opacity="0.92"/>
-      <text x="110" y="13"  text-anchor="middle" font-size="9" font-weight="700" fill="#4DC8F5">2,884만</text>
-      <text x="110" y="173" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">무선</text>
-      <text x="110" y="185" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">이어폰</text>
-
-      <!-- 텀블러 h=57 -->
-      <rect x="162" y="101" width="52" height="57"  rx="8" fill="url(#bg2)" opacity="0.92"/>
-      <text x="188" y="97"  text-anchor="middle" font-size="9" font-weight="700" fill="#4EDE74">1,153만</text>
-      <text x="188" y="173" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">텀블러</text>
-
-      <!-- 블루투스 스피커 h=47 -->
-      <rect x="240" y="111" width="52" height="47"  rx="8" fill="url(#bg3)" opacity="0.92"/>
-      <text x="266" y="107" text-anchor="middle" font-size="9" font-weight="700" fill="#CE9AFF">960만</text>
-      <text x="266" y="173" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">블루투스</text>
-      <text x="266" y="185" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">스피커</text>
-
-      <!-- 보조배터리 h=45 -->
-      <rect x="318" y="113" width="52" height="45"  rx="8" fill="url(#bg4)" opacity="0.92"/>
-      <text x="344" y="109" text-anchor="middle" font-size="9" font-weight="700" fill="#FFB347">903만</text>
-      <text x="344" y="173" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">보조</text>
-      <text x="344" y="185" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">배터리</text>
-
-      <!-- 에코백 h=30 -->
-      <rect x="396" y="128" width="52" height="30"  rx="8" fill="url(#bg5)" opacity="0.92"/>
-      <text x="422" y="124" text-anchor="middle" font-size="9" font-weight="700" fill="#FFE44D">617만</text>
-      <text x="422" y="173" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">에코백</text>
-
-      <!-- 무선충전기 h=29 -->
-      <rect x="474" y="129" width="52" height="29"  rx="8" fill="url(#bg6)" opacity="0.92"/>
-      <text x="500" y="125" text-anchor="middle" font-size="9" font-weight="700" fill="#FF8899">585만</text>
-      <text x="500" y="173" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">무선</text>
-      <text x="500" y="185" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.6)">충전기</text>
-    </svg>
-
-    <!-- 월별 비교 -->
-    <div class="section-divider"></div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">🔔 월별 매출 비교</div>
-    <div style="display:flex;gap:16px;align-items:center;">
-      <div style="flex:1;">
-        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;">
-          <span>1월</span><span style="color:#4DC8F5;font-weight:700;">46,499,000원</span>
-        </div>
-        <div class="progress-track-lg">
-          <div class="progress-bar" style="width:100%;background:linear-gradient(90deg,#1EABEE,#4DC8F5);"></div>
-        </div>
-      </div>
-      <div style="flex:1;">
-        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;">
-          <span>2월 <span style="color:var(--muted);font-size:10px;">(~10일)</span></span>
-          <span style="color:var(--green);font-weight:700;">24,507,000원</span>
-        </div>
-        <div class="progress-track-lg">
-          <div class="progress-bar" style="width:52.7%;background:linear-gradient(90deg,#4EDE74,#00CC80);"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 지역별 / 카테고리 -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title"><span class="icon">🗺️</span> 지역별 매출 현황</div>
-      <span class="badge badge-green">3개 지역</span>
-    </div>
-
-    <!-- 도넛 차트 -->
-    <div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">
-      <svg viewBox="0 0 120 120" width="108" style="flex-shrink:0;">
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#0E2038" stroke-width="20"/>
-        <!-- 서울 59.3% -->
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#1EABEE" stroke-width="20"
-                stroke-dasharray="163.9 276.5" stroke-dashoffset="69.1"
-                transform="rotate(-90 60 60)"/>
-        <!-- 대구 21.8% -->
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#4EDE74" stroke-width="20"
-                stroke-dasharray="60.3 276.5" stroke-dashoffset="-94.8"
-                transform="rotate(-90 60 60)"/>
-        <!-- 부산 18.9% -->
-        <circle cx="60" cy="60" r="44" fill="none" stroke="#BE88FF" stroke-width="20"
-                stroke-dasharray="52.2 276.5" stroke-dashoffset="-155.1"
-                transform="rotate(-90 60 60)"/>
-        <text x="60" y="56" text-anchor="middle" font-size="12" font-weight="800" fill="#E8F4FF">73,006</text>
-        <text x="60" y="69" text-anchor="middle" font-size="9"  fill="#6FA8C5">만원</text>
+  <div class="characters">
+    <!-- 도라에몽 -->
+    <div class="doraemon-wrap">
+      <svg viewBox="0 0 152 178" width="120" height="140" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="headGrad" cx="42%" cy="35%">
+            <stop offset="0%" stop-color="#4DC8F5"/>
+            <stop offset="100%" stop-color="#0A8FCC"/>
+          </radialGradient>
+          <radialGradient id="faceGrad" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="100%" stop-color="#F0F8FF"/>
+          </radialGradient>
+          <radialGradient id="bellGrad" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#FFE44D"/>
+            <stop offset="100%" stop-color="#CC9900"/>
+          </radialGradient>
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0088CC" flood-opacity="0.3"/>
+          </filter>
+        </defs>
+        <circle cx="76" cy="70" r="64" fill="url(#headGrad)" filter="url(#softShadow)"/>
+        <circle cx="76" cy="87" r="52" fill="url(#faceGrad)"/>
+        <circle cx="54" cy="61" r="15" fill="white"/>
+        <circle cx="57" cy="65" r="9" fill="#111"/>
+        <circle cx="61" cy="60" r="4" fill="white"/>
+        <circle cx="58" cy="68" r="1.8" fill="white"/>
+        <circle cx="98" cy="61" r="15" fill="white"/>
+        <circle cx="101" cy="65" r="9" fill="#111"/>
+        <circle cx="105" cy="60" r="4" fill="white"/>
+        <circle cx="102" cy="68" r="1.8" fill="white"/>
+        <circle cx="76" cy="82" r="9" fill="#FF3333"/>
+        <circle cx="73" cy="79" r="3" fill="rgba(255,255,255,0.5)"/>
+        <line x1="76" y1="91" x2="76" y2="101" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 47,101 Q 76,128 105,101" fill="none" stroke="#333" stroke-width="2.8" stroke-linecap="round"/>
+        <line x1="10" y1="83" x2="62" y2="80" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="10" y1="93" x2="62" y2="93" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="10" y1="103" x2="62" y2="106" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="90" y1="80" x2="142" y2="83" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="90" y1="93" x2="142" y2="93" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="90" y1="106" x2="142" y2="103" stroke="#555" stroke-width="1.6" stroke-linecap="round"/>
+        <rect x="11" y="131" width="130" height="13" rx="6.5" fill="#EE1111"/>
+        <rect x="11" y="131" width="130" height="5" rx="6.5" fill="rgba(255,255,255,0.22)"/>
+        <rect x="71" y="144" width="10" height="9" rx="3" fill="#CC9900"/>
+        <circle cx="76" cy="163" r="14" fill="url(#bellGrad)" class="bell-svg"/>
+        <line x1="76" y1="149" x2="76" y2="170" stroke="#AA7700" stroke-width="1.8"/>
+        <line x1="64" y1="160" x2="88" y2="160" stroke="#AA7700" stroke-width="1.8"/>
+        <circle cx="76" cy="163" r="2.5" fill="#AA7700"/>
+        <circle cx="70" cy="156" r="3.5" fill="rgba(255,255,255,0.55)"/>
       </svg>
-      <div style="flex:1;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <div style="width:10px;height:10px;border-radius:50%;background:var(--blue);"></div>
-          <div style="font-size:12px;font-weight:700;">서울</div>
-          <div style="margin-left:auto;font-size:12px;color:var(--muted);">59.3%</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-          <div style="width:10px;height:10px;border-radius:50%;background:var(--green);"></div>
-          <div style="font-size:12px;font-weight:700;">대구</div>
-          <div style="margin-left:auto;font-size:12px;color:var(--muted);">21.8%</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="width:10px;height:10px;border-radius:50%;background:var(--purple);"></div>
-          <div style="font-size:12px;font-weight:700;">부산</div>
-          <div style="margin-left:auto;font-size:12px;color:var(--muted);">18.9%</div>
-        </div>
-      </div>
     </div>
 
-    <div class="region-item">
-      <div class="region-header">
-        <div class="region-name" style="color:var(--blue);">🏙️ 서울</div>
-        <div><span class="region-pct">59.3%</span><span class="region-amount"> · 43,277,000원</span></div>
-      </div>
-      <div class="progress-track-lg">
-        <div class="progress-bar" style="width:100%;background:linear-gradient(90deg,#1EABEE,#4DC8F5);"></div>
-      </div>
-    </div>
-    <div class="region-item">
-      <div class="region-header">
-        <div class="region-name" style="color:var(--green);">🏙️ 대구</div>
-        <div><span class="region-pct" style="color:var(--green);">21.8%</span><span class="region-amount"> · 15,907,000원</span></div>
-      </div>
-      <div class="progress-track-lg">
-        <div class="progress-bar" style="width:36.8%;background:linear-gradient(90deg,#4EDE74,#00CC80);"></div>
-      </div>
-    </div>
-    <div class="region-item">
-      <div class="region-header">
-        <div class="region-name" style="color:var(--purple);">🏙️ 부산</div>
-        <div><span class="region-pct" style="color:var(--purple);">18.9%</span><span class="region-amount"> · 13,822,000원</span></div>
-      </div>
-      <div class="progress-track-lg">
-        <div class="progress-bar" style="width:31.9%;background:linear-gradient(90deg,#BE88FF,#8844CC);"></div>
-      </div>
-    </div>
-
-    <div class="section-divider"></div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">카테고리별 비중</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div style="background:rgba(30,171,238,0.07);border:1px solid rgba(30,171,238,0.2);border-radius:14px;padding:14px;text-align:center;">
-        <div style="font-size:22px;font-weight:800;color:#4DC8F5;">70.1%</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px;">전자기기</div>
-        <div style="font-size:10px;color:var(--muted);">51,186,000원</div>
-      </div>
-      <div style="background:rgba(78,222,116,0.07);border:1px solid rgba(78,222,116,0.2);border-radius:14px;padding:14px;text-align:center;">
-        <div style="font-size:22px;font-weight:800;color:var(--green);">29.9%</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:3px;">생활용품</div>
-        <div style="font-size:10px;color:var(--muted);">21,820,000원</div>
-      </div>
-    </div>
-
-    <div style="margin-top:12px;padding:11px;border-radius:12px;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.2);font-size:11px;color:var(--muted);line-height:1.7;">
-      🔔 <strong style="color:var(--yellow);">인사이트:</strong> 무선 이어폰이 전체의 39.5% 차지.<br>
-      서울 집중(59.3%) → 타 지역 확대 전략 검토 필요.
+    <!-- 도라미 -->
+    <div class="doraemon-wrap" style="animation-delay:0.5s;">
+      <svg viewBox="0 0 152 178" width="100" height="116" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="dmiHead" cx="42%" cy="35%">
+            <stop offset="0%" stop-color="#FFE866"/>
+            <stop offset="100%" stop-color="#F5C800"/>
+          </radialGradient>
+          <radialGradient id="dmiFace" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="100%" stop-color="#FFFBE6"/>
+          </radialGradient>
+          <radialGradient id="dmiBell" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#FFE44D"/>
+            <stop offset="100%" stop-color="#CC9900"/>
+          </radialGradient>
+          <filter id="dmiShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#F5C800" flood-opacity="0.3"/>
+          </filter>
+        </defs>
+        <ellipse cx="50" cy="18" rx="22" ry="14" fill="#EE2233" transform="rotate(-20 50 18)"/>
+        <ellipse cx="102" cy="18" rx="22" ry="14" fill="#EE2233" transform="rotate(20 102 18)"/>
+        <circle cx="76" cy="22" r="8" fill="#DD1122"/>
+        <circle cx="76" cy="22" r="4" fill="#FF6677"/>
+        <circle cx="76" cy="70" r="60" fill="url(#dmiHead)" filter="url(#dmiShadow)"/>
+        <circle cx="76" cy="85" r="48" fill="url(#dmiFace)"/>
+        <ellipse cx="58" cy="62" rx="13" ry="14" fill="white"/>
+        <circle cx="61" cy="65" r="8" fill="#111"/>
+        <circle cx="64" cy="61" r="3.5" fill="white"/>
+        <circle cx="62" cy="68" r="1.5" fill="white"/>
+        <line x1="48" y1="49" x2="55" y2="53" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="44" y1="54" x2="52" y2="55" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="94" cy="62" rx="13" ry="14" fill="white"/>
+        <circle cx="97" cy="65" r="8" fill="#111"/>
+        <circle cx="100" cy="61" r="3.5" fill="white"/>
+        <circle cx="98" cy="68" r="1.5" fill="white"/>
+        <line x1="104" y1="49" x2="97" y2="53" stroke="#333" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="108" y1="54" x2="100" y2="55" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="76" cy="80" r="7" fill="#FF3333"/>
+        <circle cx="74" cy="78" r="2.5" fill="rgba(255,255,255,0.5)"/>
+        <line x1="76" y1="87" x2="76" y2="96" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 52,96 Q 76,118 100,96" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="16" y1="78" x2="56" y2="76" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="16" y1="87" x2="56" y2="87" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="16" y1="96" x2="56" y2="98" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="96" y1="76" x2="136" y2="78" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="96" y1="87" x2="136" y2="87" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
+        <line x1="96" y1="98" x2="136" y2="96" stroke="#555" stroke-width="1.4" stroke-linecap="round"/>
+        <rect x="15" y="127" width="122" height="12" rx="6" fill="#EE2233"/>
+        <rect x="15" y="127" width="122" height="5" rx="6" fill="rgba(255,255,255,0.22)"/>
+        <rect x="71" y="139" width="10" height="8" rx="3" fill="#CC9900"/>
+        <circle cx="76" cy="157" r="12" fill="url(#dmiBell)"/>
+        <line x1="76" y1="145" x2="76" y2="164" stroke="#AA7700" stroke-width="1.6"/>
+        <line x1="66" y1="155" x2="86" y2="155" stroke="#AA7700" stroke-width="1.6"/>
+        <circle cx="76" cy="157" r="2" fill="#AA7700"/>
+        <circle cx="71" cy="151" r="3" fill="rgba(255,255,255,0.55)"/>
+      </svg>
     </div>
   </div>
+</div>
 
-</div><!-- /bottom-grid -->
+<!-- ══════════ 레시피 입력 ══════════ -->
+<div class="card" style="margin-bottom:16px;">
+  <div class="card-header">
+    <div class="card-title"><span class="icon">🥬</span> 식재료를 알려주세요!</div>
+    <span class="badge badge-yellow">최소 5개 레시피</span>
+  </div>
+  <div style="display:flex;gap:8px;">
+    <input id="recipeInput" type="text" placeholder="🥬 식재료를 입력하세요... (예: 양배추, 돼지고기, 감자)"
+           style="flex:1;padding:13px 17px;font-size:14px;background:var(--surface2);border:1px solid var(--border);border-radius:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color 0.2s,box-shadow 0.2s;"
+           onfocus="this.style.borderColor='var(--yellow)';this.style.boxShadow='0 0 0 3px rgba(255,215,0,0.15)'"
+           onblur="this.style.borderColor='';this.style.boxShadow=''"/>
+    <button onclick="getRecipes()"
+            style="background:linear-gradient(135deg,#FFD700,#FFA500);color:#333;border:none;border-radius:14px;padding:13px 24px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(255,215,0,0.3);white-space:nowrap;transition:opacity 0.2s,transform 0.15s;"
+            onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-1px)'"
+            onmouseout="this.style.opacity='1';this.style.transform=''">🎒 레시피 꺼내기!</button>
+  </div>
+</div>
+
+<!-- ══════════ 레시피 결과 ══════════ -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title"><span class="icon">🍽️</span> 레시피 결과</div>
+    <span class="badge badge-blue" id="resultBadge">대기 중</span>
+  </div>
+  <div id="recipe-result" style="min-height:120px;font-size:13px;line-height:1.9;">
+    <div style="text-align:center;color:var(--muted);padding:40px 0;">
+      🔔 식재료를 입력하면 도라에몽이 사차원 주머니에서<br>맛있는 레시피를 최소 5개 꺼내드려요!<br><br>
+      <span style="font-size:12px;color:rgba(111,168,197,0.6);">📺 유튜브 · 📸 인스타그램 인기 레퍼런스 포함</span>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════ 김비서 채팅 ══════════ -->
 <div class="card" style="margin-top:16px;">
@@ -1103,120 +380,16 @@
   </div>
 </div>
 
-<!-- ══════════ 도라에몽 레시피 ══════════ -->
-<div class="card" style="margin-top:16px;">
-  <div class="card-header">
-    <div class="card-title"><span class="icon">🍳</span> 도라에몽의 사차원 레시피</div>
-    <span class="badge badge-yellow">식재료 → 레시피 5개+</span>
-  </div>
-  <div style="display:flex;gap:8px;margin-bottom:14px;">
-    <input id="recipeInput" type="text" placeholder="🥬 식재료를 입력하세요... (예: 양배추, 돼지고기, 감자)"
-           style="flex:1;padding:11px 15px;font-size:13px;background:var(--surface2);border:1px solid var(--border);border-radius:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color 0.2s,box-shadow 0.2s;"
-           onfocus="this.style.borderColor='var(--yellow)';this.style.boxShadow='0 0 0 3px rgba(255,215,0,0.15)'"
-           onblur="this.style.borderColor='';this.style.boxShadow=''"/>
-    <button onclick="getRecipes()"
-            style="background:linear-gradient(135deg,#FFD700,#FFA500);color:#333;border:none;border-radius:14px;padding:11px 20px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(255,215,0,0.3);white-space:nowrap;transition:opacity 0.2s,transform 0.15s;"
-            onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-1px)'"
-            onmouseout="this.style.opacity='1';this.style.transform=''">🎒 레시피 꺼내기!</button>
-  </div>
-  <div id="recipe-result" style="min-height:60px;padding:16px;background:var(--surface2);border-radius:14px;border:1px solid var(--border2);font-size:13px;line-height:1.8;">
-    <div style="text-align:center;color:var(--muted);padding:20px 0;">
-      🔔 식재료를 입력하면 도라에몽이 사차원 주머니에서<br>맛있는 레시피를 최소 5개 꺼내드려요!<br>
-      <span style="font-size:11px;color:rgba(111,168,197,0.6);">제철 식재료 · 유행 트렌드 · 건강 정보 반영</span>
-    </div>
-  </div>
-</div>
-
 <div class="footer">
-  데이터 출처: <span>회의록.txt</span> (2026-03-09) · <span>매출데이터.csv</span> (2026.01.05~02.10)
-  · 업데이트: <span id="lastUpdate">-</span>
-  &nbsp;·&nbsp; 🔔 도라에몽의 사차원 주머니에서 만든 대시보드
+  🔔 도라에몽의 사차원 주머니에서 만든 레시피 · Gemini API 기반
 </div>
 
 <script>
-  /* ── 시계 ── */
-  function updateClock() {
-    const now = new Date();
-    const h = String(now.getHours()).padStart(2,'0');
-    const m = String(now.getMinutes()).padStart(2,'0');
-    const s = String(now.getSeconds()).padStart(2,'0');
-    document.getElementById('clock').textContent = `${h}:${m}:${s}`;
-    const days = ['일','월','화','수','목','금','토'];
-    document.getElementById('dateStr').textContent =
-      `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일 ${days[now.getDay()]}요일`;
-    document.getElementById('lastUpdate').textContent = `${h}:${m}:${s}`;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  /* ── 할 일 카운트 ── */
-  function updateTaskCount() {
-    const items = document.querySelectorAll('#todo-list .todo-item');
-    const done  = document.querySelectorAll('#todo-list .todo-item.done').length;
-    const total = items.length;
-    const left  = total - done;
-    document.getElementById('doneCount').textContent  = done;
-    document.getElementById('leftCount').textContent  = left;
-    document.getElementById('taskCountKpi').innerHTML =
-      `${total}<span style="font-size:15px;">건</span>`;
-    const badge = document.getElementById('pendingBadge');
-    badge.textContent = left > 0 ? `${left}건 남음` : '모두 완료 🎉';
-    badge.className   = left > 0 ? 'badge badge-red' : 'badge badge-green';
-  }
-
-  /* ── 체크박스 토글 ── */
-  function toggleTodo(el) {
-    el.classList.toggle('done');
-    el.querySelector('.todo-checkbox').classList.toggle('checked');
-    updateTaskCount();
-  }
-
-  /* ── 할 일 추가 ── */
-  function addTask() {
-    const text     = document.getElementById('newTaskText').value.trim();
-    const priority = document.getElementById('newTaskPriority').value;
-    const deadline = document.getElementById('newTaskDeadline').value.trim();
-    const assignee = document.getElementById('newTaskAssignee').value.trim();
-    if (!text) { document.getElementById('newTaskText').focus(); return; }
-
-    const pMap = {
-      high:   { dot:'p-high',   label:'높음' },
-      medium: { dot:'p-medium', label:'중간' },
-      low:    { dot:'p-low',    label:'낮음' },
-    };
-    const p = pMap[priority];
-    const deadlinePart = deadline ? `<span class="deadline-tag warn">⚠ ${escHtml(deadline)}</span>` : '';
-    const assigneePart = assignee ? ` · ${escHtml(assignee)}` : '';
-
-    const div = document.createElement('div');
-    div.className = 'todo-item';
-    div.setAttribute('onclick','toggleTodo(this)');
-    div.innerHTML = `
-      <div class="todo-checkbox"></div>
-      <div class="todo-content">
-        <div class="todo-text">${escHtml(text)}</div>
-        <div class="todo-meta">
-          <div class="priority-dot ${p.dot}"></div>
-          <span class="todo-tag">${p.label}${assigneePart}</span>
-          ${deadlinePart}
-        </div>
-      </div>`;
-    document.getElementById('todo-list').appendChild(div);
-    document.getElementById('newTaskText').value     = '';
-    document.getElementById('newTaskDeadline').value = '';
-    document.getElementById('newTaskAssignee').value = '';
-    updateTaskCount();
-  }
+  const GEMINI_KEY = 'AIzaSyDQy2qsPmssSmItoYr9dn5N9UeePUrdKbs';
 
   function escHtml(s) {
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
-  document.getElementById('newTaskText').addEventListener('keydown', e => {
-    if (e.key === 'Enter') addTask();
-  });
-
-  updateTaskCount();
 
   /* ── 도라에몽 레시피 ── */
   const recipeInput = document.getElementById('recipeInput');
@@ -1229,30 +402,42 @@
     if (!ingredient) { recipeInput.focus(); return; }
 
     const resultDiv = document.getElementById('recipe-result');
-    resultDiv.innerHTML = '<div style="text-align:center;color:var(--blue);padding:20px 0;">🔔 도라에몽이 사차원 주머니를 뒤지는 중... 잠시만요!</div>';
+    const badge = document.getElementById('resultBadge');
+    badge.textContent = '검색 중...';
+    resultDiv.innerHTML = '<div style="text-align:center;color:var(--blue);padding:40px 0;"><div style="font-size:40px;margin-bottom:12px;animation:float 1.5s ease-in-out infinite;">🔔</div>도라에몽이 사차원 주머니를 뒤지는 중... 잠시만요!</div>';
 
     const today = new Date();
     const month = today.getMonth() + 1;
 
-    const prompt = `너는 도라에몽이야! 사용자가 "${escHtml(ingredient)}" 식재료를 줬어.
+    const prompt = `너는 요리 전문가 도라에몽이야! 사용자가 "${ingredient}" 식재료를 줬어.
 
-지금은 ${month}월이야. 다음을 반영해서 레시피를 만들어줘:
+지금은 ${month}월이야. 다음을 반드시 반영해서 레시피를 만들어줘:
 - 현재 ${month}월 제철 식재료와 잘 어울리는 조합
-- 최신 음식 트렌드 (예: 저탄고지, 원팬요리, 에어프라이어 활용, SNS 인기 레시피 등)
+- 최신 음식 트렌드 (예: 저탄고지, 원팬요리, 에어프라이어 활용, SNS 인기 레시피, 먹방 트렌드 등)
 - 건강과 영양 균형
 
-반드시 최소 5개 이상의 레시피를 알려줘. 각 레시피마다:
-1. 🍽️ 요리 이름 (창의적이고 맛있어 보이는 이름)
-2. ⏱️ 예상 조리 시간
-3. 📝 간단한 재료 목록
-4. 👨‍🍳 조리 순서 (간결하게 3~5단계)
-5. 💡 꿀팁 (맛을 올리는 비법 하나)
+반드시 최소 5개 이상의 레시피를 알려줘. 각 레시피마다 반드시 아래 형식을 지켜줘:
 
+## 🍽️ [번호]. 요리 이름
+⏱️ **조리 시간:** 00분
+📝 **재료:** 재료 목록
+👨‍🍳 **조리 순서:**
+1. 첫번째 단계
+2. 두번째 단계
+3. 세번째 단계
+💡 **꿀팁:** 맛을 올리는 비법
+
+📺 **유튜브 추천 검색어:** "해당 요리 유튜브에서 검색하면 좋은 키워드" (예: "백종원 양배추롤", "자취요리 양배추전")
+📸 **인스타그램 해시태그:** #관련해시태그1 #관련해시태그2 #관련해시태그3
+
+---
+
+마지막에 전체 레시피에 대한 간단한 정리와, 이 식재료와 잘 어울리는 ${month}월 제철 식재료 추천도 해줘.
 친근하고 재미있는 도라에몽 말투로 답변해줘! 이모지도 적절히 사용해줘.`;
 
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+        \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=\${GEMINI_KEY}\`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1263,18 +448,24 @@
       );
       const data = await res.json();
       const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '사차원 주머니가 막혔어요! 다시 시도해주세요!';
-      resultDiv.innerHTML = reply
+
+      const formatted = reply
         .replace(/\n/g, '<br>')
         .replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--yellow);">$1</strong>')
-        .replace(/^### (.*?)(<br>)/gm, '<div style="font-size:16px;font-weight:800;color:var(--blue);margin:14px 0 6px;">$1</div>')
-        .replace(/^## (.*?)(<br>)/gm, '<div style="font-size:18px;font-weight:800;color:var(--blue);margin:18px 0 8px;">$1</div>');
+        .replace(/## (.*?)(<br>)/g, '<div style="font-size:17px;font-weight:800;color:var(--blue);margin:20px 0 8px;padding:10px 14px;background:rgba(30,171,238,0.08);border-left:4px solid var(--blue);border-radius:0 12px 12px 0;">$1</div>')
+        .replace(/---(<br>)?/g, '<hr style="border:none;border-top:1px solid var(--border);margin:16px 0;">')
+        .replace(/📺(.*?)(<br>)/g, '<div style="margin:6px 0;padding:6px 10px;background:rgba(255,0,0,0.08);border:1px solid rgba(255,0,0,0.15);border-radius:8px;font-size:12px;">📺$1</div>')
+        .replace(/📸(.*?)(<br>)/g, '<div style="margin:6px 0;padding:6px 10px;background:rgba(190,136,255,0.08);border:1px solid rgba(190,136,255,0.15);border-radius:8px;font-size:12px;">📸$1</div>');
+
+      resultDiv.innerHTML = formatted;
+      badge.textContent = '완료!';
     } catch (err) {
-      resultDiv.innerHTML = '<div style="text-align:center;color:var(--red);padding:20px 0;">⚠ 오류가 발생했어요. 네트워크를 확인해주세요.</div>';
+      resultDiv.innerHTML = '<div style="text-align:center;color:var(--red);padding:40px 0;">⚠ 오류가 발생했어요. 네트워크를 확인해주세요.</div>';
+      badge.textContent = '오류';
     }
   }
 
   /* ── 김비서 채팅 ── */
-  const GEMINI_KEY = 'AIzaSyDQy2qsPmssSmItoYr9dn5N9UeePUrdKbs';
   const chatMessages = document.getElementById('chat-messages');
   const chatInput = document.getElementById('chatInput');
   const chatHistory = [];
@@ -1329,7 +520,7 @@
 
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+        \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=\${GEMINI_KEY}\`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
