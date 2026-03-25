@@ -1103,6 +1103,30 @@
   </div>
 </div>
 
+<!-- ══════════ 도라에몽 레시피 ══════════ -->
+<div class="card" style="margin-top:16px;">
+  <div class="card-header">
+    <div class="card-title"><span class="icon">🍳</span> 도라에몽의 사차원 레시피</div>
+    <span class="badge badge-yellow">식재료 → 레시피 5개+</span>
+  </div>
+  <div style="display:flex;gap:8px;margin-bottom:14px;">
+    <input id="recipeInput" type="text" placeholder="🥬 식재료를 입력하세요... (예: 양배추, 돼지고기, 감자)"
+           style="flex:1;padding:11px 15px;font-size:13px;background:var(--surface2);border:1px solid var(--border);border-radius:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color 0.2s,box-shadow 0.2s;"
+           onfocus="this.style.borderColor='var(--yellow)';this.style.boxShadow='0 0 0 3px rgba(255,215,0,0.15)'"
+           onblur="this.style.borderColor='';this.style.boxShadow=''"/>
+    <button onclick="getRecipes()"
+            style="background:linear-gradient(135deg,#FFD700,#FFA500);color:#333;border:none;border-radius:14px;padding:11px 20px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(255,215,0,0.3);white-space:nowrap;transition:opacity 0.2s,transform 0.15s;"
+            onmouseover="this.style.opacity='0.88';this.style.transform='translateY(-1px)'"
+            onmouseout="this.style.opacity='1';this.style.transform=''">🎒 레시피 꺼내기!</button>
+  </div>
+  <div id="recipe-result" style="min-height:60px;padding:16px;background:var(--surface2);border-radius:14px;border:1px solid var(--border2);font-size:13px;line-height:1.8;">
+    <div style="text-align:center;color:var(--muted);padding:20px 0;">
+      🔔 식재료를 입력하면 도라에몽이 사차원 주머니에서<br>맛있는 레시피를 최소 5개 꺼내드려요!<br>
+      <span style="font-size:11px;color:rgba(111,168,197,0.6);">제철 식재료 · 유행 트렌드 · 건강 정보 반영</span>
+    </div>
+  </div>
+</div>
+
 <div class="footer">
   데이터 출처: <span>회의록.txt</span> (2026-03-09) · <span>매출데이터.csv</span> (2026.01.05~02.10)
   · 업데이트: <span id="lastUpdate">-</span>
@@ -1193,6 +1217,61 @@
   });
 
   updateTaskCount();
+
+  /* ── 도라에몽 레시피 ── */
+  const recipeInput = document.getElementById('recipeInput');
+  recipeInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') getRecipes();
+  });
+
+  async function getRecipes() {
+    const ingredient = recipeInput.value.trim();
+    if (!ingredient) { recipeInput.focus(); return; }
+
+    const resultDiv = document.getElementById('recipe-result');
+    resultDiv.innerHTML = '<div style="text-align:center;color:var(--blue);padding:20px 0;">🔔 도라에몽이 사차원 주머니를 뒤지는 중... 잠시만요!</div>';
+
+    const today = new Date();
+    const month = today.getMonth() + 1;
+
+    const prompt = `너는 도라에몽이야! 사용자가 "${escHtml(ingredient)}" 식재료를 줬어.
+
+지금은 ${month}월이야. 다음을 반영해서 레시피를 만들어줘:
+- 현재 ${month}월 제철 식재료와 잘 어울리는 조합
+- 최신 음식 트렌드 (예: 저탄고지, 원팬요리, 에어프라이어 활용, SNS 인기 레시피 등)
+- 건강과 영양 균형
+
+반드시 최소 5개 이상의 레시피를 알려줘. 각 레시피마다:
+1. 🍽️ 요리 이름 (창의적이고 맛있어 보이는 이름)
+2. ⏱️ 예상 조리 시간
+3. 📝 간단한 재료 목록
+4. 👨‍🍳 조리 순서 (간결하게 3~5단계)
+5. 💡 꿀팁 (맛을 올리는 비법 하나)
+
+친근하고 재미있는 도라에몽 말투로 답변해줘! 이모지도 적절히 사용해줘.`;
+
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ role: 'user', parts: [{ text: prompt }] }]
+          })
+        }
+      );
+      const data = await res.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '사차원 주머니가 막혔어요! 다시 시도해주세요!';
+      resultDiv.innerHTML = reply
+        .replace(/\n/g, '<br>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--yellow);">$1</strong>')
+        .replace(/^### (.*?)(<br>)/gm, '<div style="font-size:16px;font-weight:800;color:var(--blue);margin:14px 0 6px;">$1</div>')
+        .replace(/^## (.*?)(<br>)/gm, '<div style="font-size:18px;font-weight:800;color:var(--blue);margin:18px 0 8px;">$1</div>');
+    } catch (err) {
+      resultDiv.innerHTML = '<div style="text-align:center;color:var(--red);padding:20px 0;">⚠ 오류가 발생했어요. 네트워크를 확인해주세요.</div>';
+    }
+  }
 
   /* ── 김비서 채팅 ── */
   const GEMINI_KEY = 'AIzaSyDQy2qsPmssSmItoYr9dn5N9UeePUrdKbs';
