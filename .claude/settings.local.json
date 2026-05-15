@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.notion.so)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__computer",
+      "mcp__Claude_in_Chrome__tabs_create_mcp",
+      "WebFetch(domain:www.youtube.com)",
+      "WebFetch(domain:m.youtube.com)",
+      "Bash(curl -s \"https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC&q=1분다이어터&type=channel&key=AIzaSyDQy2qsPmssSmItoYr9dn5N9UeePUrdKbs\")",
+      "mcp__Claude_in_Chrome__browser_batch",
+      "mcp__Claude_in_Chrome__get_page_text",
+      "mcp__Claude_in_Chrome__javascript_tool",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
